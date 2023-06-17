@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotBot.WebApi.Tests.Integr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotBot.Server.Tests", "SpotBot.Server.Tests\SpotBot.Server.Tests.csproj", "{32386D85-AC3E-4F2A-97E3-8FA708BB21D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotBot.Server.Tests.Unit", "SpotBot.Server.Tests.Unit\SpotBot.Server.Tests.Unit.csproj", "{9C0F572D-A1BA-44D2-878A-2DE69E5BA048}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{32386D85-AC3E-4F2A-97E3-8FA708BB21D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32386D85-AC3E-4F2A-97E3-8FA708BB21D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32386D85-AC3E-4F2A-97E3-8FA708BB21D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0F572D-A1BA-44D2-878A-2DE69E5BA048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0F572D-A1BA-44D2-878A-2DE69E5BA048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0F572D-A1BA-44D2-878A-2DE69E5BA048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0F572D-A1BA-44D2-878A-2DE69E5BA048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
