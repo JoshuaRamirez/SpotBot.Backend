@@ -1,4 +1,4 @@
-﻿using SpotBot.Server.Models.Records.Core;
+﻿using SpotBot.Server.Tables.Records.Core;
 using System.Dynamic;
 using System.Linq.Expressions;
 

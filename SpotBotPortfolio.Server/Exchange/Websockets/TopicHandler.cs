@@ -1,5 +1,8 @@
-﻿public abstract class TopicHandler
+﻿namespace SpotBot.Server.Exchange.Websockets
 {
-    public abstract string Topic { get; set; }
-    public abstract void Handle(string message);
+    public abstract class TopicHandler
+    {
+        public abstract string Topic { get; set; }
+        public abstract void Handle(string message);
+    }
 }

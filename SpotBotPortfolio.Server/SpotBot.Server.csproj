@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exchange\Websockets\Models\Requests\" />
+    <Folder Include="Exchange\Websockets\Resources\Requests\" />
   </ItemGroup>
 
 </Project>

@@ -1,34 +1,37 @@
 ﻿using SpotBot.Server.Exchange.Websockets.Models.Responses.Shapes;
 using System.Text.Json;
 
-public class SubscriptionHandler<T> : TopicHandler
+namespace SpotBot.Server.Exchange.Websockets
 {
-    public SubscriptionHandler(Action<DataMessage<T>> action)
+    public class SubscriptionHandler<T> : TopicHandler
     {
-        _action = action;
-        Topic = "";
-    }
-
-    private readonly Action<DataMessage<T>> _action;
-
-    public override string Topic { get; set; }
-
-    public override void Handle(string message)
-    {
-        var dataMessage = Deserialize(message);
-        _action(dataMessage);
-    }
-
-    private DataMessage<T> Deserialize(string message)
-    {
-        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        var deserializedMessage = JsonSerializer.Deserialize<DataMessage<T>>(message, options);
-        if (deserializedMessage == null)
+        public SubscriptionHandler(Action<DataMessage<T>> action)
         {
-            throw new ArgumentException(nameof(message), "The deserialized message cannot be null.");
+            _action = action;
+            Topic = "";
         }
-        return deserializedMessage;
+
+        private readonly Action<DataMessage<T>> _action;
+
+        public override string Topic { get; set; }
+
+        public override void Handle(string message)
+        {
+            var dataMessage = Deserialize(message);
+            _action(dataMessage);
+        }
+
+        private DataMessage<T> Deserialize(string message)
+        {
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var deserializedMessage = JsonSerializer.Deserialize<DataMessage<T>>(message, options);
+            if (deserializedMessage == null)
+            {
+                throw new ArgumentException(nameof(message), "The deserialized message cannot be null.");
+            }
+            return deserializedMessage;
+        }
+
+
     }
-
-
 }

@@ -1,49 +1,52 @@
-﻿public class PerformanceMetricsCalculator
+﻿namespace SpotBot.Server.Domain
 {
-    public decimal CalculateROI(decimal initialInvestment, decimal finalValue)
+    public class PerformanceMetricsCalculator
     {
-        return (finalValue - initialInvestment) / initialInvestment * 100;
-    }
-
-    public decimal CalculateProfitFactor(decimal totalProfits, decimal totalLosses)
-    {
-        if (totalLosses == 0)
+        public decimal CalculateROI(decimal initialInvestment, decimal finalValue)
         {
-            return decimal.MaxValue; // Avoid division by zero
+            return (finalValue - initialInvestment) / initialInvestment * 100;
         }
 
-        return totalProfits / totalLosses;
-    }
-
-    public decimal CalculateRecoveryFactor(decimal netProfits, decimal maxDrawdown)
-    {
-        if (maxDrawdown == 0)
+        public decimal CalculateProfitFactor(decimal totalProfits, decimal totalLosses)
         {
-            return decimal.MaxValue; // Avoid division by zero
+            if (totalLosses == 0)
+            {
+                return decimal.MaxValue; // Avoid division by zero
+            }
+
+            return totalProfits / totalLosses;
         }
 
-        return netProfits / maxDrawdown;
-    }
-
-    public decimal CalculateExpectancy(decimal winRate, decimal averageWin, decimal averageLoss)
-    {
-        return (winRate * averageWin) - ((1 - winRate) * averageLoss);
-    }
-
-    public decimal CalculateAverageTradeDuration(List<decimal> tradeDurations)
-    {
-        if (tradeDurations.Count == 0)
+        public decimal CalculateRecoveryFactor(decimal netProfits, decimal maxDrawdown)
         {
-            return 0;
+            if (maxDrawdown == 0)
+            {
+                return decimal.MaxValue; // Avoid division by zero
+            }
+
+            return netProfits / maxDrawdown;
         }
 
-        decimal totalDuration = tradeDurations.Sum();
-        return totalDuration / tradeDurations.Count;
-    }
-}
+        public decimal CalculateExpectancy(decimal winRate, decimal averageWin, decimal averageLoss)
+        {
+            return (winRate * averageWin) - ((1 - winRate) * averageLoss);
+        }
 
-public class Trade
-{
-    public decimal Duration { get; set; }
-    // Add other properties relevant to a trade
+        public decimal CalculateAverageTradeDuration(List<decimal> tradeDurations)
+        {
+            if (tradeDurations.Count == 0)
+            {
+                return 0;
+            }
+
+            decimal totalDuration = tradeDurations.Sum();
+            return totalDuration / tradeDurations.Count;
+        }
+    }
+
+    public class Trade
+    {
+        public decimal Duration { get; set; }
+        // Add other properties relevant to a trade
+    }
 }

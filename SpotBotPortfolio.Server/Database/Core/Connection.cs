@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using SpotBot.Server.Core;
 
 namespace SpotBot.Server.Database.Core
 {

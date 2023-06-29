@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using MySqlConnector;
 using SpotBot.Server.Database.Core;
-using SpotBot.Server.Models.Records.Core;
+using SpotBot.Server.Tables.Records.Core;
 
 namespace SpotBot.Server.Database
 {

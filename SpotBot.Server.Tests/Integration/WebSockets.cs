@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-using SpotBot.Server.Exchange.RestApi.Resources.Posts.Responses;
+﻿using SpotBot.Server.Exchange.Resources.Responses.Public;
+using SpotBot.Server.Exchange.Websockets;
 using SpotBot.Server.Exchange.Websockets.Models.Responses.Shapes;
-using System.Net.WebSockets;
-using System.Text;
 using System.Text.Json;
 
 namespace SpotBot.Server.Tests.Integration
@@ -36,7 +34,7 @@ namespace SpotBot.Server.Tests.Integration
             var subscription = SubscriptionFactory.AllSymbolsTicker(SimulateMessageReceived);
             await _exchangeWebSockets.Subscribe(subscription, cancellationToken);
             _exchangeWebSockets.Unsubscribe(subscription.Topic);
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 10; i++)
             {
                 await Task.Delay(10);
             }

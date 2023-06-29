@@ -1,4 +1,5 @@
 ﻿using FluentMigrator.Runner.Initialization;
+using SpotBot.Server.Core;
 
 namespace SpotBot.Server.Database.Core
 {

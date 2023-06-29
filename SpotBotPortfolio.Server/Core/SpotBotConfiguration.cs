@@ -1,25 +1,28 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SpotBot.Server.Configuration;
 
-public static class SpotBotConfiguration
+namespace SpotBot.Server.Core
 {
-    private static IServiceProvider? _serviceProvider;
-
-    public static void Initialize(IServiceProvider serviceProvider)
+    public static class SpotBotConfiguration
     {
-        _serviceProvider = serviceProvider;
-    }
+        private static IServiceProvider? _serviceProvider;
 
-    public static SpotBotConfigurationModel Model
-    {
-        get
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            if (_serviceProvider == null)
+            _serviceProvider = serviceProvider;
+        }
+
+        public static SpotBotConfigurationModel Model
+        {
+            get
             {
-                throw new InvalidOperationException("Service provider has not been initialized.");
+                if (_serviceProvider == null)
+                {
+                    throw new InvalidOperationException("Service provider has not been initialized.");
+                }
+                var config = _serviceProvider.GetRequiredService<SpotBotConfigurationModel>();
+                return config;
             }
-            var config = _serviceProvider.GetRequiredService<SpotBotConfigurationModel>();
-            return config;
         }
     }
 }
