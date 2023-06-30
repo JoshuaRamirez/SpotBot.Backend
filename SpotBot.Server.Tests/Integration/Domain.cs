@@ -4,7 +4,7 @@ using SpotBot.Server.Domain;
 using SpotBot.Server.Domain.Trading.Indicators;
 using SpotBot.Server.Exchange.RestApi.Resources.Gets.Responses.Shapes;
 using SpotBot.Server.Exchange.RestApi.Resources.Shapes;
-using SpotBot.Server.Exchange.Services;
+using SpotBot.Server.Exchange.RestApi.Services;
 
 namespace SpotBot.Server.Tests.Integration
 {
@@ -20,11 +20,11 @@ namespace SpotBot.Server.Tests.Integration
         private List<KLineShape> getKLinesFromExchange(string symbol, TimeInterval timeInterval)
         {
             var connection = new Connection();
-            var service = new KLineService(connection);
+            var service = new GetKLinesRequest(connection);
             var now = DateTime.Now;
             var endAt = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
             var startAt = endAt.AddHours(-1500);
-            var result = service.Get(1, symbol, timeInterval.ToStringValue(), startAt, endAt);
+            var result = service.Execute(1, symbol, timeInterval, startAt, endAt);
             return result.KLines;
         }
 

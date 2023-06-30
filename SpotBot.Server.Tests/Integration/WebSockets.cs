@@ -1,6 +1,6 @@
-﻿using SpotBot.Server.Exchange.Resources.Responses.Public;
-using SpotBot.Server.Exchange.Websockets;
-using SpotBot.Server.Exchange.Websockets.Models.Responses.Shapes;
+﻿using SpotBot.Server.Exchange.Websockets.Core;
+using SpotBot.Server.Exchange.Websockets.Responses.Public;
+using SpotBot.Server.Exchange.Websockets.Subscribers;
 using System.Text.Json;
 
 namespace SpotBot.Server.Tests.Integration
@@ -8,12 +8,12 @@ namespace SpotBot.Server.Tests.Integration
     [TestFixture]
     public class ExchangeWebSocketsTests
     {
-        private ExchangeWebSockets _exchangeWebSockets;
+        private WebSockets _exchangeWebSockets;
         private bool _messageReceived;
         [SetUp]
         public void Setup()
         {
-            _exchangeWebSockets = new ExchangeWebSockets();
+            _exchangeWebSockets = new WebSockets();
             _messageReceived = false;
         }
 
@@ -26,29 +26,19 @@ namespace SpotBot.Server.Tests.Integration
         [Test]
         public async Task ConnectAndSubscribe_Success()
         {
-            var cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
-
-            await _exchangeWebSockets.Connect(cancellationToken);
-
-            var subscription = SubscriptionFactory.AllSymbolsTicker(SimulateMessageReceived);
-            await _exchangeWebSockets.Subscribe(subscription, cancellationToken);
-            _exchangeWebSockets.Unsubscribe(subscription.Topic);
+            var subscriber = new AllSymbolsTickerSubscriber();
+            await subscriber.SubscribeAsync(SimulateMessageReceived);
             for (var i = 0; i < 10; i++)
             {
                 await Task.Delay(10);
             }
             Assert.That(_messageReceived, Is.True, "Messages not received.");
-            cancellationTokenSource.Cancel();
+            subscriber.Unsubscribe();
         }
 
-        private void SimulateMessageReceived(DataMessage<AllSymbolsTickerData> message)
+        private void SimulateMessageReceived(AllSymbolsTickerPublication message)
         {
             _messageReceived = true;
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var serializedMessage = JsonSerializer.Serialize(message, options);
-            Assert.IsNotNull(serializedMessage);
-            Console.WriteLine(serializedMessage);
         }
     }
 }
