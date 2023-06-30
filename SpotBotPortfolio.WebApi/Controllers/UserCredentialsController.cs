@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpotBot.Server.Database.Core;
-using SpotBot.Server.Domain.Services;
+using SpotBot.Server.Domain.System.Services;
 using SpotBot.Server.Tables.Resources.Requests;
 using SpotBot.Server.Tables.Resources.Responses;
 

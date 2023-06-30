@@ -7,7 +7,7 @@ using SpotBot.Server.Tables.Resources.Responses;
 using SpotBot.Server.Tables.Records;
 using SpotBot.Server.Tables.Services;
 
-namespace SpotBot.Server.Domain.Services
+namespace SpotBot.Server.Domain.System.Services
 {
     public class SessionService
     {

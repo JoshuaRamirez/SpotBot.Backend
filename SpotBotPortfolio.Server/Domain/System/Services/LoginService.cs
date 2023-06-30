@@ -3,7 +3,7 @@ using SpotBot.Server.Tables.Resources.Requests;
 using SpotBot.Server.Tables.Resources.Responses;
 using SpotBot.Server.Tables.Services;
 
-namespace SpotBot.Server.Domain.Services
+namespace SpotBot.Server.Domain.System.Services
 {
     public class LoginService
     {

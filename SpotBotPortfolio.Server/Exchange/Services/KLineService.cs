@@ -56,6 +56,7 @@ namespace SpotBot.Server.Exchange.Services
             var getKlinesResponse = new GetKLinesResponse();
             getKlinesResponse.Symbol = symbol;
             getKlinesResponse.Type = type;
+            deserializedResponse.Data.Reverse();
             foreach (var klineData in deserializedResponse.Data)
             {
                 var kLineShape = new KLineShape
