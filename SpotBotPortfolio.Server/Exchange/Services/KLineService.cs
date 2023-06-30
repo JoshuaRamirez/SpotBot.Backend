@@ -15,15 +15,26 @@ namespace SpotBot.Server.Exchange.Services
         }
 
         // Retrieves symbols for a specific user and optional market
-        public GetKLinesResponse Get(int userId, string symbol, string type, long startAt = 0, long endAt = 0)
+        public GetKLinesResponse Get(int userId, string symbol, string type, DateTime? startAt = null, DateTime? endAt = null)
         {
 
             // Create an exchange client for the specified user
             var exchangeClientFactory = new ExchangeClientFactory(_connection);
             using var exchangeClient = exchangeClientFactory.Create(userId);
 
+            //Convert dates to a unix date time offset
+            long? startAtOffset = null;
+            long? endAtOffset = null;
+            if (startAt.HasValue && endAt.HasValue) { 
+                startAtOffset = new DateTimeOffset(startAt.Value).ToUnixTimeSeconds();
+                endAtOffset = new DateTimeOffset(endAt.Value).ToUnixTimeSeconds();
+            }
+            
             // Send an asynchronous GET request to the symbols endpoint
-            var endpoint = $"/api/v1/market/candles?type={type}&symbol={symbol}&startAt={startAt}&endAt={endAt}";
+            var endpoint = $"/api/v1/market/candles?type={type}&symbol={symbol}";
+            if (startAtOffset.HasValue && endAtOffset.HasValue) {
+                endpoint += $"&startAt={startAt}&endAt={endAt}";
+            }
             var asyncExchangeResponse = exchangeClient.GetAsync(endpoint);
             asyncExchangeResponse.Wait();
 

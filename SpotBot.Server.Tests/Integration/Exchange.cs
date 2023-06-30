@@ -34,7 +34,10 @@ namespace SpotBot.Server.Tests.Integration
         {
             var connection = new Connection();
             var service = new KLineService(connection);
-            var result = service.Get(1, "BTC-USDT", "1hour");
+            var now = DateTime.Now;
+            var endAt = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
+            var startAt = endAt.AddHours(-1499);
+            var result = service.Get(1, "BTC-USDT", "1hour", startAt, endAt);
             Assert.IsNotNull(result);
             result.KLines.ForEach(x => Console.WriteLine($"{x.Time} | Open: {x.Open}, Close: {x.Close}"));
         }
