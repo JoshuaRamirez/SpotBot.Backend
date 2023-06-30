@@ -33,7 +33,7 @@ namespace SpotBot.Server.Exchange.Services
             // Send an asynchronous GET request to the symbols endpoint
             var endpoint = $"/api/v1/market/candles?type={type}&symbol={symbol}";
             if (startAtOffset.HasValue && endAtOffset.HasValue) {
-                endpoint += $"&startAt={startAt}&endAt={endAt}";
+                endpoint += $"&startAt={startAtOffset}&endAt={endAtOffset}";
             }
             var asyncExchangeResponse = exchangeClient.GetAsync(endpoint);
             asyncExchangeResponse.Wait();
