@@ -1,9 +1,9 @@
 ﻿using SpotBot.Server.Exchange.RestApi.Resources.Shapes;
-using SpotBot.Server.Exchange.Websockets.Responses.Public;
+using SpotBot.Server.Exchange.Websockets.Publications.Public;
 
 namespace SpotBot.Server.Exchange.Websockets.Core
 {
-    public static class SubscriptionFactory
+    internal static class SubscriptionFactory
     {
         public static Subscription<SymbolTickerPublication> SymbolTicker(Action<Publication<SymbolTickerPublication>> messageHandler, string symbol)
         {
@@ -47,7 +47,7 @@ namespace SpotBot.Server.Exchange.Websockets.Core
             return CreateSubscription(messageHandler, topic);
         }
 
-        public static Subscription<KlinesPublication> Klines(Action<Publication<KlinesPublication>> messageHandler, string symbol, TimeInterval timeInterval)
+        public static Subscription<KlinesPublication> Klines(Action<Publication<KlinesPublication>> messageHandler, string symbol, TimeIntervalExchangeShape timeInterval)
         {
             string topic = TopicDirectory.Klines(symbol, timeInterval);
             return CreateSubscription(messageHandler, topic);

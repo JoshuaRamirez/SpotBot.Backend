@@ -1,12 +1,12 @@
-﻿using SpotBot.Server.Exchange.RestApi.Resources.Gets.Responses.Shapes;
+﻿using SpotBot.Server.Exchange.RestApi.Responses.Shapes;
 
 namespace SpotBot.Server.Domain
 {
-    public class SpotGridThing
+    internal class SpotGridThing
     {
-        private List<KLineShape> kLines;
+        private List<KLineExchangeShape> kLines;
 
-        public SpotGridThing(List<KLineShape> kLines)
+        public SpotGridThing(List<KLineExchangeShape> kLines)
         {
             this.kLines = kLines;
         }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpotBot.Server.Database.Core;
 using Microsoft.AspNetCore.Authorization;
-using SpotBot.Server.Tables.Resources.Requests;
-using SpotBot.Server.Tables.Services;
+using SpotBot.Server.Api.Requests;
 
 namespace SpotBot.WebApi.Controllers
 {
@@ -13,33 +11,27 @@ namespace SpotBot.WebApi.Controllers
     {
 
         [HttpPost("{userId}")]
-        public IActionResult Post(PostExchangeRequest resource, int userId)
+        public IActionResult Post(PostExchangeRequest postExchangeRequest, int userId)
         {
-            using var connection = new Connection();
-            var exchangeService = new ExchangeService(connection);
-            exchangeService.Create(userId, resource);
+            postExchangeRequest.Execute(userId);
             return Ok();
         }
 
         [HttpPatch("{userId}")]
-        public IActionResult Patch(PatchExchangeRequest resource, int userId) {
-            using var connection = new Connection();
-            var exchangeService = new ExchangeService(connection);
-            exchangeService.Update(userId, resource);
+        public IActionResult Patch(PatchExchangeRequest patchExchangeRequest, int userId) {
+            patchExchangeRequest.Execute(userId);
             return Ok();
         }
 
         [HttpGet("{userId}")]
-        public IActionResult Get(int userId)
+        public IActionResult Get([FromRoute] GetExchangeRequest getExchangeRequest)
         {
-            using var connection = new Connection();
-            var exchangeService = new ExchangeService(connection);
-            var exchange = exchangeService.Get(userId);
-            if (exchange == null)
+            var getExchangeResponse = getExchangeRequest.Execute();
+            if (getExchangeResponse == null)
             {
                 return NotFound();
             }
-            return Ok(exchange);
+            return Ok(getExchangeResponse);
         } 
 
     }

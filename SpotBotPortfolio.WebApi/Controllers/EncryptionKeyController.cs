@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpotBot.Server.Database.Core;
 using Microsoft.AspNetCore.Authorization;
-using SpotBot.Server.Tables.Resources.Responses;
-using SpotBot.Server.Tables.Services;
+using SpotBot.Server.Api.Responses;
+using SpotBot.Server.Api.Requests;
 
 namespace SpotBot.WebApi.Controllers
 {
@@ -12,17 +12,15 @@ namespace SpotBot.WebApi.Controllers
     public class EncryptionKeyController : ControllerBase
     {
 
-        [HttpGet("{userId}")]
-        public ActionResult<GetEncryptionKeyResponse> Get(int userId)
+        [HttpGet("{UserId}")]
+        public ActionResult<GetEncryptionKeyResponse> Get([FromRoute] GetEncryptionKeyRequest getEncryptionKeyRequest)
         {
-            using var connection = new Connection();
-            var encryptionKeyService = new EncryptionKeyService(connection);
-            var resource = encryptionKeyService.UpGet(userId);
-            if (resource == null)
+            var getEncryptionKeyResponse = getEncryptionKeyRequest.Execute();
+            if (getEncryptionKeyResponse == null)
             {
                 return NotFound();
             }
-            return resource;
+            return getEncryptionKeyResponse;
         }
     }
 }

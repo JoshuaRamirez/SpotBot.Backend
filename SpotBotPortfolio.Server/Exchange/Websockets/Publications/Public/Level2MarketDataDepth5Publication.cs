@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class Level2MarketDataDepth5Publication
+    internal class Level2MarketDataDepth5Publication
     {
         public List<decimal[]> Asks { get; set; }
         public List<decimal[]> Bids { get; set; }

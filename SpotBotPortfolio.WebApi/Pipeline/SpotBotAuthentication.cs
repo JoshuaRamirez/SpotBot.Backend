@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
+using SpotBot.Server.Api.Requests;
 using SpotBot.Server.Database.Core;
-using SpotBot.Server.Tables.Services;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 
@@ -46,9 +46,9 @@ namespace SpotBot.WebApi.Pipeline
 
         private bool checkTokenAgainstDatabase(Guid clientToken)
         {
-            using var connection = new Connection();
-            var userTokenService = new UserTokenService(connection);
-            var savedToken = userTokenService.Get(clientToken);
+            var getUserTokenRequest = new GetUserTokenRequest();
+            getUserTokenRequest.Token = clientToken;
+            var savedToken = getUserTokenRequest.Execute();
             if (savedToken == null)
             {
                 return false;

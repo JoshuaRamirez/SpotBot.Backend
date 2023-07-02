@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class AllSymbolsTickerPublication
+    internal class AllSymbolsTickerPublication
     {
         public string Sequence { get; set; }
         public string BestAsk { get; set; }

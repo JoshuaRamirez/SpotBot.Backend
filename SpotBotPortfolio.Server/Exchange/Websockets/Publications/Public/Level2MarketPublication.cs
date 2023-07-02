@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class Level2MarketPublication
+    internal class Level2MarketPublication
     {
         public Dictionary<string, List<decimal[]>> Changes { get; set; }
         public long SequenceEnd { get; set; }

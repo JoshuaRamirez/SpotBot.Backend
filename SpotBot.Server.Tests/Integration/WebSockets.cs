@@ -1,5 +1,5 @@
 ﻿using SpotBot.Server.Exchange.Websockets.Core;
-using SpotBot.Server.Exchange.Websockets.Responses.Public;
+using SpotBot.Server.Exchange.Websockets.Publications.Public;
 using SpotBot.Server.Exchange.Websockets.Subscribers;
 using System.Text.Json;
 

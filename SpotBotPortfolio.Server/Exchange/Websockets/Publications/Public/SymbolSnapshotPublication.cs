@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class SymbolSnapshotPublication
+    internal class SymbolSnapshotPublication
     {
         public bool Trading { get; set; }
         public string Symbol { get; set; }

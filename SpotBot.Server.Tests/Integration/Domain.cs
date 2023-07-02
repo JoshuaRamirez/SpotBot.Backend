@@ -2,9 +2,9 @@
 using SpotBot.Server.Database.Core;
 using SpotBot.Server.Domain;
 using SpotBot.Server.Domain.Trading.Indicators;
-using SpotBot.Server.Exchange.RestApi.Resources.Gets.Responses.Shapes;
+using SpotBot.Server.Exchange.RestApi.Requests;
 using SpotBot.Server.Exchange.RestApi.Resources.Shapes;
-using SpotBot.Server.Exchange.RestApi.Services;
+using SpotBot.Server.Exchange.RestApi.Responses.Shapes;
 
 namespace SpotBot.Server.Tests.Integration
 {
@@ -17,10 +17,10 @@ namespace SpotBot.Server.Tests.Integration
             Program.Main(args);
         }
 
-        private List<KLineShape> getKLinesFromExchange(string symbol, TimeInterval timeInterval)
+        private List<KLineExchangeShape> getKLinesFromExchange(string symbol, TimeIntervalExchangeShape timeInterval)
         {
             var connection = new Connection();
-            var service = new GetKLinesRequest(connection);
+            var service = new GetKLinesExchangeRequest(connection);
             var now = DateTime.Now;
             var endAt = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
             var startAt = endAt.AddHours(-1500);
@@ -31,7 +31,7 @@ namespace SpotBot.Server.Tests.Integration
         [Test]
         public void doStuff()
         {
-            var kLines = getKLinesFromExchange("BTC-USDT", TimeInterval.OneHour);
+            var kLines = getKLinesFromExchange("BTC-USDT", TimeIntervalExchangeShape.OneHour);
             var backtest = new SpotGridThing(kLines);
             var pnl = backtest.RunBacktest(10000m, 0.01m);
             Console.WriteLine(pnl);
@@ -40,7 +40,7 @@ namespace SpotBot.Server.Tests.Integration
         [Test]
         public void Rsi()
         {
-            var kLines = getKLinesFromExchange("BTC-USDT", TimeInterval.OneHour);
+            var kLines = getKLinesFromExchange("BTC-USDT", TimeIntervalExchangeShape.OneHour);
             var candles = kLines.ToDomainModels();
             var rsi = new RelativeStrengthIndex(candles);
             var rsiResult = rsi.Calculate();
@@ -50,7 +50,7 @@ namespace SpotBot.Server.Tests.Integration
         [Test]
         public void Mfi()
         {
-            var kLines = getKLinesFromExchange("BTC-USDT", TimeInterval.OneHour);
+            var kLines = getKLinesFromExchange("BTC-USDT", TimeIntervalExchangeShape.OneHour);
             var candles = kLines.ToDomainModels();
             var indicator = new MoneyFlowIndex(candles);
             var result = indicator.Calculate();

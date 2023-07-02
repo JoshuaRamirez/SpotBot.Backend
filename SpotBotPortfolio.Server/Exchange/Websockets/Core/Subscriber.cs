@@ -1,9 +1,6 @@
-﻿using SpotBot.Server.Exchange.Websockets.Core;
-using SpotBot.Server.Exchange.Websockets.Responses.Public;
-
-namespace SpotBot.Server.Exchange.Websockets.Requests
+﻿namespace SpotBot.Server.Exchange.Websockets.Core
 {
-    public abstract class Subscriber<TPublication>
+    internal abstract class Subscriber<TPublication>
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly CancellationToken _cancellationToken;
@@ -16,8 +13,8 @@ namespace SpotBot.Server.Exchange.Websockets.Requests
             _cancellationTokenSource = new CancellationTokenSource();
             _cancellationToken = _cancellationTokenSource.Token;
             _webSockets = new WebSockets();
-            _subscriber = (TPublication publication) => { };
-            
+            _subscriber = (publication) => { };
+
         }
         public async Task SubscribeAsync(Action<TPublication> subscriber)
         {
@@ -30,7 +27,8 @@ namespace SpotBot.Server.Exchange.Websockets.Requests
 
         public void Unsubscribe()
         {
-            if (_subscription == null) {
+            if (_subscription == null)
+            {
                 return;
             }
             _webSockets.Unsubscribe(_subscription.Topic);

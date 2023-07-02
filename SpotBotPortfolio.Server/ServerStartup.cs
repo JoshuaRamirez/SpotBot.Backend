@@ -22,7 +22,7 @@ namespace SpotBot.Server
         }
         public static void InitializeDatabase(IServiceScope scope)
         {
-            DatabaseCreator.CreateDatabaseIfDoesNotExist();
+            DatabaseFactory.CreateDatabaseIfDoesNotExist();
         }
         public static void MigrateDatabase(IServiceScope scope)
         {

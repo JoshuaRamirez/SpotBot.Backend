@@ -2,7 +2,7 @@
 
 namespace SpotBot.Server.Exchange.Websockets.Core
 {
-    public class SubscriptionHandler<T> : TopicHandler
+    internal class SubscriptionHandler<T> : TopicHandler
     {
         public SubscriptionHandler(Action<Publication<T>> action)
         {

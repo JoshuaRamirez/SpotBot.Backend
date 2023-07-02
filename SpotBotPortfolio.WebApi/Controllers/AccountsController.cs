@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpotBot.Server.Database.Core;
 using Microsoft.AspNetCore.Authorization;
-using SpotBot.Server.Exchange.RestApi.Services;
-using SpotBot.Server.Exchange.RestApi.Responses;
+using SpotBot.Server.Api.Requests;
+using SpotBot.Server.Api.Responses;
 
 namespace SpotBot.WebApi.Controllers
 {
@@ -12,17 +11,15 @@ namespace SpotBot.WebApi.Controllers
     public class AccountsController : ControllerBase
     {
 
-        [HttpGet("{userId}")]
-        public ActionResult<GetAccountsResponse> Get(int userId)
+        [HttpGet("{UserId}")]
+        public ActionResult<GetAccountsResponse> Get([FromRoute] GetAccountsRequest getAccountsRequest)
         {
-            using var connection = new Connection();
-            var accountsService = new GetAccountsRequest(connection);
-            var resource = accountsService.Execute(userId);
-            if (resource == null)
+            var getAccountsResponse = getAccountsRequest.Execute();
+            if (getAccountsResponse == null)
             {
                 return NotFound();
             }
-            return resource;
+            return getAccountsResponse;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SpotBot.Server.Exchange.Websockets.Core
 {
-    public class Publication<T>
+    internal class Publication<T>
     {
         public string Type { get; set; }
         public string Topic { get; set; }

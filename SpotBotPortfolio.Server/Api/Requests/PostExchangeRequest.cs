@@ -1,0 +1,30 @@
+﻿using SpotBot.Server.Core;
+using SpotBot.Server.Database.Core;
+using SpotBot.Server.Services;
+using System.ComponentModel.DataAnnotations;
+
+namespace SpotBot.Server.Api.Requests
+{
+    public class PostExchangeRequest
+    {
+        public PostExchangeRequest()
+        {
+            ApiPublicKey = "";
+            ApiPrivateKey = "";
+            ApiKeyPassphrase = "";
+            ApiVersion = "";
+        }
+        [Required] public string ApiPublicKey { get; set; }
+        [Required] public string ApiPrivateKey { get; set; }
+        [Required] public string ApiKeyPassphrase { get; set; }
+        [Required] public string ApiVersion { get; set; }
+
+        public void Execute(int userId)
+        {
+            using var connection = new Connection();
+            var exchangeService = new ExchangeService(connection);
+            var exchangeRecord = this.ToRecord(userId);
+            exchangeService.Create(exchangeRecord);
+        }
+    }
+}

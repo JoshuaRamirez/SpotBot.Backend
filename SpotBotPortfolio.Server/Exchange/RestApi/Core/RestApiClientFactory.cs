@@ -1,6 +1,6 @@
 ﻿using SpotBot.Server.Core;
 using SpotBot.Server.Database.Core;
-using SpotBot.Server.Tables.Services;
+using SpotBot.Server.Services;
 
 namespace SpotBot.Server.Exchange.RestApi.Core
 {
@@ -20,46 +20,44 @@ namespace SpotBot.Server.Exchange.RestApi.Core
         public RestApiClient Create(int userId)
         {
             var encryptionKeyService = new EncryptionKeyService(_connection);
-            var getEncryptionKeyResponse = encryptionKeyService.Get(userId);
-            if (getEncryptionKeyResponse == null)
+            var encryptionKeyRecord = encryptionKeyService.Get(userId);
+            if (encryptionKeyRecord == null)
             {
                 throw new InvalidOperationException("EncryptionKey response is null.");
             }
-            if (string.IsNullOrEmpty(getEncryptionKeyResponse.Value))
+            if (encryptionKeyRecord.ObfuscatedValue == null)
             {
-                throw new InvalidOperationException("Encryption key is null or empty.");
+                throw new InvalidOperationException("EncryptionKey text value is null.");
             }
-            var obfuscatedEncryptionKey = getEncryptionKeyResponse.Value;
-            var encryptionKey = Obfuscation.Deobfuscate(obfuscatedEncryptionKey);
+            var encryptionKeyValue = Obfuscation.Deobfuscate(encryptionKeyRecord.ObfuscatedValue);
             var exchangeService = new ExchangeService(_connection);
-            var getExchangeResponse = exchangeService.Get(userId);
-            if (getExchangeResponse == null)
+            var exchangeRecord = exchangeService.GetByUserId(userId);
+            if (exchangeRecord == null)
             {
                 throw new InvalidOperationException("Exchange response is null.");
             }
 
-            var apiKey = getExchangeResponse.ApiPublicKey;
+            var apiKey = exchangeRecord.ApiPublicKey;
             if (string.IsNullOrEmpty(apiKey))
             {
                 throw new InvalidOperationException("API key is null or empty.");
             }
 
-            var apiSecret = getExchangeResponse.ApiPrivateKey;
+            var apiSecret = exchangeRecord.ApiPrivateKey;
             if (string.IsNullOrEmpty(apiSecret))
             {
                 throw new InvalidOperationException("API secret is null or empty.");
             }
 
-            var passPhrase = getExchangeResponse.ApiKeyPassphrase;
+            var passPhrase = exchangeRecord.ApiKeyPassphrase;
             if (string.IsNullOrEmpty(passPhrase))
             {
                 throw new InvalidOperationException("API key passphrase is null or empty.");
             }
-            var encryption = new Encryption(encryptionKey);
+            var encryption = new Encryption(encryptionKeyValue);
             apiKey = encryption.Decrypt(apiKey);
             apiSecret = encryption.Decrypt(apiSecret);
             passPhrase = encryption.Decrypt(passPhrase);
-
             var restApiClient = new RestApiClient(apiKey, apiSecret, passPhrase);
             return restApiClient;
         }

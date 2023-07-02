@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class OrderBookChangePublication
+    internal class OrderBookChangePublication
     {
         public long Sequence { get; set; }
         public string Currency { get; set; }

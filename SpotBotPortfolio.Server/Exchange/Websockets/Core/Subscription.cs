@@ -1,7 +1,7 @@
 ﻿namespace SpotBot.Server.Exchange.Websockets.Core
 {
 
-    public class Subscription<T>
+    internal class Subscription<T>
     {
         public Subscription(Action<Publication<T>> receiveAction)
         {

@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace SpotBot.Server.Exchange.Websockets.Core
 {
-    public class WebSockets : IDisposable
+    internal class WebSockets : IDisposable
     {
         private readonly ClientWebSocket _socket;
         private CancellationTokenSource _cancellationTokenSource;
@@ -34,7 +34,7 @@ namespace SpotBot.Server.Exchange.Websockets.Core
                     throw new Exception("The response body is null.");
                 }
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var message = JsonSerializer.Deserialize<ConnectTokenHttpResponse>(responseBody, options);
+                var message = JsonSerializer.Deserialize<PostConnectTokenExchangeResponse>(responseBody, options);
                 if (message == null)
                 {
                     throw new InvalidOperationException();

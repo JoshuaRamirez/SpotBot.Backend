@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class KlinesPublication
+    internal class KlinesPublication
     {
         public string Symbol { get; set; }
         public List<string> Candles { get; set; }

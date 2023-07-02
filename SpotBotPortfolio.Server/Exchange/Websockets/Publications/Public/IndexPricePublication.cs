@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class IndexPricePublication
+    internal class IndexPricePublication
     {
         public string Symbol { get; set; }
         public int Granularity { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpotBot.Server.Database.Core;
-using SpotBot.Server.Tables.Services;
+using SpotBot.Server.Api.Requests;
 
 namespace SpotBot.WebApi.Controllers
 {
@@ -9,16 +8,14 @@ namespace SpotBot.WebApi.Controllers
     public class UserTokenController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(Guid token)
+        public IActionResult Get([FromQuery] GetUserTokenRequest getUserTokenRequest)
         {
-            using var connection = new Connection();
-            var userTokenService = new UserTokenService(connection);
-            var userToken = userTokenService.Get(token);
-            if (userToken == null)
+            var getUserTokenResponse = getUserTokenRequest.Execute();
+            if (getUserTokenResponse == null)
             {
                 return NotFound();
             }
-            return Ok(userToken);
+            return Ok(getUserTokenResponse);
         }
     }
 }

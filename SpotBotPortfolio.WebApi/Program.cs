@@ -9,7 +9,7 @@ public class Program
     public static void Main(string[] args)
     {
         var doNotRun = false;
-        if (args[0] == "test-mode")
+        if (args.Length > 0 && args[0] == "test-mode")
         {
             doNotRun = true;
         }

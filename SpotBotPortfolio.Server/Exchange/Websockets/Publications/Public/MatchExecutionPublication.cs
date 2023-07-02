@@ -1,6 +1,6 @@
-﻿namespace SpotBot.Server.Exchange.Websockets.Responses.Public
+﻿namespace SpotBot.Server.Exchange.Websockets.Publications.Public
 {
-    public class MatchExecutionPublication
+    internal class MatchExecutionPublication
     {
         public string Sequence { get; set; }
         public string Type { get; set; }
