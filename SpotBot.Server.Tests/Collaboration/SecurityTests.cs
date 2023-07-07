@@ -1,7 +1,7 @@
 using System;
 using SpotBot.Server.Core;
 
-namespace SpotBot.Server.Tests.Unit
+namespace SpotBot.Server.Tests.Collaboration
 {
 
     [TestFixture]

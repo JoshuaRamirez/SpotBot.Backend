@@ -16,12 +16,12 @@
             _subscriber = (publication) => { };
 
         }
-        public async Task SubscribeAsync(Action<TPublication> subscriber)
+        public void Subscribe(Action<TPublication> subscriber)
         {
             _subscriber = subscriber;
-            await _webSockets.Connect(_cancellationToken);
+            _webSockets.Connect(_cancellationToken).Wait();
             _subscription = CreateSubscription();
-            await _webSockets.Subscribe(_subscription, _cancellationToken);
+            _webSockets.Subscribe(_subscription, _cancellationToken).Wait();
 
         }
 

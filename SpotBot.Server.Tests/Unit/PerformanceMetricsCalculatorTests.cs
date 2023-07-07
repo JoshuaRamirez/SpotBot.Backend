@@ -1,6 +1,6 @@
 using SpotBot.Server.Domain;
 
-namespace Spotbot.Server.Tests.Unit
+namespace SpotBot.Server.Tests.Unit
 {
 
     [TestFixture]

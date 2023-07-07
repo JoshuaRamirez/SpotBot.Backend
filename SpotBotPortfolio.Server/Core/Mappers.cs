@@ -6,11 +6,13 @@ using SpotBot.Server.Database.Records;
 using SpotBot.Server.Domain.Trading.Models;
 using SpotBot.Server.Exchange.RestApi.Responses;
 using SpotBot.Server.Exchange.RestApi.Responses.Shapes;
+using SpotBot.Server.Exchange.Websockets.Publications.Public;
 
 namespace SpotBot.Server.Core
 {
     internal static class Mappers
     {
+
         public static AccountShape ToShape(this AccountExchangeShape accountExchangeShape)
         {
             var accountShape = new AccountShape();
