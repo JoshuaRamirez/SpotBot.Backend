@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
-using SpotBot.Server.Api.Requests;
-using SpotBot.Server.Database.Core;
+using SpotBot.Server.Services.Requests;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 

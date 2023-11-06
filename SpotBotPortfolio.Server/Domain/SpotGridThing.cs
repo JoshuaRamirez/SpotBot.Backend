@@ -1,4 +1,4 @@
-﻿using SpotBot.Server.Exchange.RestApi.Responses.Shapes;
+﻿using SpotBot.Server.Exchange.Responses.Shapes;
 
 namespace SpotBot.Server.Domain
 {

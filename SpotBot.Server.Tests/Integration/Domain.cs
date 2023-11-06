@@ -2,9 +2,9 @@
 using SpotBot.Server.Database.Core;
 using SpotBot.Server.Domain;
 using SpotBot.Server.Domain.Trading.Indicators;
-using SpotBot.Server.Exchange.RestApi.Requests;
-using SpotBot.Server.Exchange.RestApi.Resources.Shapes;
-using SpotBot.Server.Exchange.RestApi.Responses.Shapes;
+using SpotBot.Server.Exchange.Api.Rest.Shapes;
+using SpotBot.Server.Exchange.Requests;
+using SpotBot.Server.Exchange.Responses.Shapes;
 
 namespace SpotBot.Server.Tests.Integration
 {
@@ -20,11 +20,16 @@ namespace SpotBot.Server.Tests.Integration
         private List<KLineExchangeShape> getKLinesFromExchange(string symbol, TimeIntervalExchangeShape timeInterval)
         {
             var connection = new Connection();
-            var service = new GetKLinesExchangeRequest(connection);
+            var getKLinesExchangeRequest = new GetExchangeKLinesRequest(connection);
             var now = DateTime.Now;
             var endAt = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
             var startAt = endAt.AddHours(-1500);
-            var result = service.Execute(1, symbol, timeInterval, startAt, endAt);
+            getKLinesExchangeRequest.UserId = 1;
+            getKLinesExchangeRequest.Symbol = symbol;
+            getKLinesExchangeRequest.TimeInterval = timeInterval;
+            getKLinesExchangeRequest.StartAt = startAt;
+            getKLinesExchangeRequest.EndAt = endAt;
+            var result = getKLinesExchangeRequest.Execute();
             return result.KLines;
         }
 

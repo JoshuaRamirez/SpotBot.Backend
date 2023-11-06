@@ -1,12 +1,11 @@
 ﻿using Skender.Stock.Indicators;
-using SpotBot.Server.Api.Requests;
-using SpotBot.Server.Api.Responses;
-using SpotBot.Server.Api.Responses.Shapes;
 using SpotBot.Server.Database.Records;
 using SpotBot.Server.Domain.Trading.Models;
-using SpotBot.Server.Exchange.RestApi.Responses;
-using SpotBot.Server.Exchange.RestApi.Responses.Shapes;
-using SpotBot.Server.Exchange.Websockets.Publications.Public;
+using SpotBot.Server.Exchange.Responses;
+using SpotBot.Server.Exchange.Responses.Shapes;
+using SpotBot.Server.Services.Requests;
+using SpotBot.Server.Services.Responses;
+using SpotBot.Server.Services.Responses.Shapes;
 
 namespace SpotBot.Server.Core
 {
@@ -24,7 +23,7 @@ namespace SpotBot.Server.Core
             accountShape.Type = accountExchangeShape.Type;
             return accountShape;
         }
-        public static GetAccountsResponse? ToResponse(this GetAccountsExchangeResponse? getAccountsExchangeResponse)
+        public static GetAccountsResponse? ToResponse(this GetExchangeAccountsResponse? getAccountsExchangeResponse)
         {
             if (getAccountsExchangeResponse == null)
             {

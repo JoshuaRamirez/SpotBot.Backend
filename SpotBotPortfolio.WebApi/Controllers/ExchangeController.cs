@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using SpotBot.Server.Api.Requests;
+using SpotBot.Server.Services.Requests;
 
 namespace SpotBot.WebApi.Controllers
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpotBot.Server.Api.Requests;
-using SpotBot.Server.Api.Responses;
 using SpotBot.Server.Database.Core;
 using SpotBot.Server.Services;
+using SpotBot.Server.Services.Requests;
+using SpotBot.Server.Services.Responses;
 
 namespace SpotBot.WebApi.Controllers
 {

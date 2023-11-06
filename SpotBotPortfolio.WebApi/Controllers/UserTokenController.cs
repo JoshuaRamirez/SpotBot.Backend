@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpotBot.Server.Api.Requests;
+using SpotBot.Server.Services.Requests;
 
 namespace SpotBot.WebApi.Controllers
 {

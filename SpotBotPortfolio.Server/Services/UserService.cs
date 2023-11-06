@@ -1,6 +1,6 @@
 ﻿using SpotBot.Server.Database.Core;
+using SpotBot.Server.Database.Operations.Queries;
 using SpotBot.Server.Database.Records;
-using SpotBot.Server.Operations.Queries;
 
 namespace SpotBot.Server.Services
 {

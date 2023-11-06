@@ -63,7 +63,7 @@ namespace SpotBot.Server.Database.Core
 
         public string BuildIdQuery()
         {
-            return $"SELECT {_primaryKey} FROM {_tableName} WHERE Id = @Id";
+            return $"SELECT {_primaryKey} FROM {_tableName} WHERE {_primaryKey} = @{_primaryKey}";
         }
 
         public string BuildSelectQuery()
