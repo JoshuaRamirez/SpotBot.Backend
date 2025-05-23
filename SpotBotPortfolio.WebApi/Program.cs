@@ -3,7 +3,6 @@ using SpotBot.Server;
 using SpotBot.Server.Configuration;
 using SpotBot.Server.Core;
 using SpotBot.WebApi.Pipeline;
-
 public class Program
 {
     public static void Main(string[] args)
@@ -19,26 +18,24 @@ public class Program
         builder.Logging.ClearProviders().AddConsole();
 
         // Configuration setup
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
+        var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
         // Configure Service IOC Registration
         var customAuthenticationName = "SpotBotAuthentication";
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = customAuthenticationName;
-            options.DefaultChallengeScheme = customAuthenticationName;
-        })
-        .AddScheme<AuthenticationSchemeOptions, SpotBotAuthenticationHandler>(customAuthenticationName, null);
-
-        builder.Services
-            .AddControllers()
-            .AddJsonOptions(options => {
+        builder.Services.AddAuthentication(
+            options =>
+            {
+                options.DefaultAuthenticateScheme = customAuthenticationName;
+                options.DefaultChallengeScheme = customAuthenticationName;
+            }
+        ).AddScheme<AuthenticationSchemeOptions, SpotBotAuthenticationHandler>(customAuthenticationName, null);
+        builder.Services.AddControllers().AddJsonOptions(
+            options =>
+            {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null; // Disable the default camel casing
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; // Make the property names case-insensitive
-            });
+            }
+        );
         ServerStartup.Services(builder.Services);
 
         // Configure Swagger
@@ -47,14 +44,18 @@ public class Program
 
         // Configure CORS
         var corsOriginPolicyName = "MyAllowSpecificOrigins";
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy(name: corsOriginPolicyName, policy => {
-                policy.WithOrigins("http://localhost:4200")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-            });
-        });
+        builder.Services.AddCors(
+            options =>
+            {
+                options.AddPolicy(
+                    corsOriginPolicyName, policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                        policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    }
+                );
+            }
+        );
 
         // Bind Configuration
         var userTokenConfig = new SpotBotConfigurationModel();
@@ -83,15 +84,11 @@ public class Program
         }
 
         // Configure the HTTP request pipeline.
-        if (
-            app.Environment.EnvironmentName.Equals("Local") ||
-            app.Environment.EnvironmentName.Equals("Development")
-        )
+        if (app.Environment.EnvironmentName.Equals("Local") || app.Environment.EnvironmentName.Equals("Development"))
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();

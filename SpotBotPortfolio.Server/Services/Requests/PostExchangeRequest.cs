@@ -1,30 +1,20 @@
-﻿using SpotBot.Server.Core;
+﻿using System.ComponentModel.DataAnnotations;
+using SpotBot.Server.Core;
 using SpotBot.Server.Database.Core;
-using SpotBot.Server.Services;
-using System.ComponentModel.DataAnnotations;
 
-namespace SpotBot.Server.Services.Requests
+namespace SpotBot.Server.Services.Requests;
+public class PostExchangeRequest
 {
-    public class PostExchangeRequest
-    {
-        public PostExchangeRequest()
-        {
-            ApiPublicKey = "";
-            ApiPrivateKey = "";
-            ApiKeyPassphrase = "";
-            ApiVersion = "";
-        }
-        [Required] public string ApiPublicKey { get; set; }
-        [Required] public string ApiPrivateKey { get; set; }
-        [Required] public string ApiKeyPassphrase { get; set; }
-        [Required] public string ApiVersion { get; set; }
+    [Required] public string? ApiPublicKey { get; set; }
+    [Required] public string? ApiPrivateKey { get; set; }
+    [Required] public string? ApiKeyPassphrase { get; set; }
+    [Required] public string? ApiVersion { get; set; }
 
-        public void Execute(int userId)
-        {
-            using var connection = new Connection();
-            var exchangeService = new ExchangeService(connection);
-            var exchangeRecord = this.ToRecord(userId);
-            exchangeService.Create(exchangeRecord);
-        }
+    public void Execute(int userId)
+    {
+        using var connection = new Connection();
+        var exchangeService = new ExchangeService(connection);
+        var exchangeRecord = this.ToRecord(userId);
+        exchangeService.Create(exchangeRecord);
     }
 }
