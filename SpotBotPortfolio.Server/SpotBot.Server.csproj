@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
-    <PackageReference Include="FluentMigrator" Version="5.2.0" />
-    <PackageReference Include="FluentMigrator.Runner" Version="5.2.0" />
-    <PackageReference Include="FluentMigrator.Runner.MySql" Version="5.2.0" />
-    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.1.66" />
+    <PackageReference Include="FluentMigrator" Version="7.1.0" />
+    <PackageReference Include="FluentMigrator.Runner" Version="7.1.0" />
+    <PackageReference Include="FluentMigrator.Runner.MySql" Version="7.1.0" />
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Skender.Stock.Indicators" Version="2.5.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="Skender.Stock.Indicators" Version="2.6.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
 </Project>
